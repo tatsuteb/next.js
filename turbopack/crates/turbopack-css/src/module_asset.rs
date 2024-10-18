@@ -18,6 +18,7 @@ use turbopack_core::{
     resolve::{origin::ResolveOrigin, parse::Request},
     source::Source,
     source_map::OptionSourceMap,
+    SOURCE_MAP_PREFIX,
 };
 use turbopack_ecmascript::{
     chunk::{
@@ -415,7 +416,10 @@ fn generate_minimal_source_map(filename: String, source: String) -> Vc<ParseResu
         pos += line.len() as u32;
     }
     let sm: Arc<SourceMap> = Default::default();
-    sm.new_source_file(FileName::Custom(filename).into(), source);
+    sm.new_source_file(
+        FileName::Custom(format!("{}{}", SOURCE_MAP_PREFIX, filename)).into(),
+        source,
+    );
     let map = ParseResultSourceMap::new(sm, mappings, OptionSourceMap::none());
     map.cell()
 }
