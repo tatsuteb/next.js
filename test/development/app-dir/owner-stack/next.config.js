@@ -3,7 +3,7 @@
  */
 const nextConfig = {
   experimental: {
-    reactOwnerStack: false,
+    reactOwnerStack: true,
   },
 }
 

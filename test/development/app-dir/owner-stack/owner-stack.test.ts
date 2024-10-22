@@ -73,10 +73,7 @@ describe('app-dir - owner-stack', () => {
 
     if (process.env.TURBOPACK) {
       expect(normalizeStackTrace(errorLog)).toMatchInlineSnapshot(`
-        "%o
-        %s
-        %s
-        Error: browser error
+        "Error: browser error
         at useThrowError 
         at useErrorHook 
         at Page 
@@ -90,14 +87,12 @@ describe('app-dir - owner-stack', () => {
         at renderRootSync 
         at performWorkOnRoot 
         at performWorkOnRootViaSchedulerTask 
-        at MessagePort.performWorkUntilDeadline  The above error occurred in the <NotFoundErrorBoundary> component. React will try to recreate this component tree from scratch using the error boundary you provided, ReactDevOverlay."
+        at MessagePort.performWorkUntilDeadline 
+        The above error occurred in the <Page> component. It was handled by the <ReactDevOverlay> error boundary."
       `)
     } else {
       expect(normalizeStackTrace(errorLog)).toMatchInlineSnapshot(`
-        "%o
-        %s
-        %s
-        Error: browser error
+        "Error: browser error
         at useThrowError 
         at useErrorHook 
         at Page 
@@ -111,7 +106,8 @@ describe('app-dir - owner-stack', () => {
         at renderRootSync 
         at performWorkOnRoot 
         at performWorkOnRootViaSchedulerTask 
-        at MessagePort.performWorkUntilDeadline  The above error occurred in the <NotFoundErrorBoundary> component. React will try to recreate this component tree from scratch using the error boundary you provided, ReactDevOverlay."
+        at MessagePort.performWorkUntilDeadline 
+        The above error occurred in the <Page> component. It was handled by the <ReactDevOverlay> error boundary."
       `)
     }
   })
@@ -131,15 +127,14 @@ describe('app-dir - owner-stack', () => {
     const stackFramesContent = await getStackFramesContent(browser)
 
     expect(stackFramesContent).toMatchInlineSnapshot(`
-      "at useThrowError (app/browser/caught/page.js (39:3))
-      at useErrorHook (app/browser/caught/page.js (29:3))"
+      "at useErrorHook (app/browser/caught/page.js (39:3))
+      at Thrower (app/browser/caught/page.js (29:3))
+      at Inner (app/browser/caught/page.js (23:7))
+      at Page (app/browser/caught/page.js (43:10))"
     `)
 
     expect(normalizeStackTrace(errorLog)).toMatchInlineSnapshot(`
-      "%o
-      %s
-      %s
-      Error: browser error
+      "Error: browser error
       at useThrowError 
       at useErrorHook 
       at Thrower 
@@ -153,7 +148,8 @@ describe('app-dir - owner-stack', () => {
       at renderRootSync 
       at performWorkOnRoot 
       at performWorkOnRootViaSchedulerTask 
-      at MessagePort.performWorkUntilDeadline  The above error occurred in the <Thrower> component. React will try to recreate this component tree from scratch using the error boundary you provided, MyErrorBoundary."
+      at MessagePort.performWorkUntilDeadline 
+      The above error occurred in the <Thrower> component. It was handled by the <MyErrorBoundary> error boundary."
     `)
   })
 
@@ -181,10 +177,7 @@ describe('app-dir - owner-stack', () => {
     }).message
 
     expect(normalizeStackTrace(errorLog)).toMatchInlineSnapshot(`
-      "%o
-      %s
-      %s
-      Error: ssr error
+      "Error: ssr error
       at useThrowError 
       at useErrorHook 
       at Page 
@@ -198,7 +191,8 @@ describe('app-dir - owner-stack', () => {
       at renderRootSync 
       at performWorkOnRoot 
       at performWorkOnRootViaSchedulerTask 
-      at MessagePort.performWorkUntilDeadline  The above error occurred in the <NotFoundErrorBoundary> component. React will try to recreate this component tree from scratch using the error boundary you provided, ReactDevOverlay."
+      at MessagePort.performWorkUntilDeadline 
+      The above error occurred in the <Page> component. It was handled by the <ReactDevOverlay> error boundary."
     `)
   })
 })
