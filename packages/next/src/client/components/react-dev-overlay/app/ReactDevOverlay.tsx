@@ -18,7 +18,6 @@ export default class ReactDevOverlay extends React.PureComponent<
     state: OverlayState
     dispatcher?: Dispatcher
     children: React.ReactNode
-    onReactError: (error: Error) => void
   },
   ReactDevOverlayState
 > {
@@ -30,10 +29,6 @@ export default class ReactDevOverlay extends React.PureComponent<
     return {
       hasReactError: true,
     }
-  }
-
-  componentDidCatch(componentErr: Error) {
-    this.props.onReactError(componentErr)
   }
 
   render() {

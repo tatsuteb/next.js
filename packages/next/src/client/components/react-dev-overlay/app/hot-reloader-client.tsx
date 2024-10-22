@@ -678,11 +678,7 @@ export default function HotReload({
   ])
 
   return (
-    <ReactDevOverlay
-      onReactError={() => {}}
-      state={state}
-      dispatcher={dispatcher}
-    >
+    <ReactDevOverlay state={state} dispatcher={dispatcher}>
       {children}
     </ReactDevOverlay>
   )
